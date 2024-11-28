@@ -14,4 +14,16 @@ std::pair<int, int> get_move(Chomp *game) {
   return legal_moves[dis(gen)];
 }
 
+std::pair<int, int> get_move_glouton(Chomp *game) {
+  auto legal_moves = game->get_legal_moves();
+  for (const auto &move : legal_moves) {
+    Chomp temp_game = *game;
+    temp_game.take(move.first, move.second);
+    if (temp_game.is_game_over()) {
+      return move;
+    }
+  }
+  return legal_moves[0];
+}
+
 } // namespace plyrdm

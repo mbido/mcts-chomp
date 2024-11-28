@@ -81,5 +81,10 @@ int main() {
   auto map = map_games(&plyrdm::get_move, &plyrdm::get_move, 20);
   displayDoubles(map);
   saveToFile(map, "output.txt", "plyrdm");
+
+  auto map_glouton = map_games(&plyrdm::get_move_glouton, &plyrdm::get_move, 20);
+  displayDoubles(map_glouton);
+  saveToFile(map_glouton, "output_glouton.txt", "plyrdm_glouton");
+
   return 0;
 }

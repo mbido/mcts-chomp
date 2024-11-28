@@ -5,6 +5,7 @@
 
 namespace plyrdm {
 std::pair<int, int> get_move(Chomp *game);
+std::pair<int, int> get_move_glouton(Chomp *game);
 }
 
 #endif // PLAYERS_H
