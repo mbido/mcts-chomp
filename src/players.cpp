@@ -138,6 +138,22 @@ std::pair<int, int> get_move(Chomp *game) {
   //   return std::make_pair<int, int>(1, 1);
   // }
 
+  // if (game->m_data_heights[0] == 1) { // one line
+  //   return std::make_pair<int, int>(0, 1);
+  // }
+
+  // if (game->m_data_widths[0] == 1) { // one line
+  //   return std::make_pair<int, int>(1, 0);
+  // }
+
+  // if (two_lines_same_size(game)) {
+  //   return std::make_pair<int, int>(1, game->m_data_widths[1] - 1);
+  // }
+
+  // if (two_columns_same_size(game)) {
+  //   return std::make_pair<int, int>(game->m_data_heights[1] - 1, 1);
+  // }
+
   // ------ We evaluate moves to get one of the best one ------
   auto rd = std::random_device{};
   auto rng = std::default_random_engine{rd()};

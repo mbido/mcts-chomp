@@ -40,6 +40,8 @@ double win_rate(std::pair<int, int> (*get_move_p0)(Chomp *),
                 std::pair<int, int> (*get_move_p1)(Chomp *), Chomp *game,
                 int repeat) {
   double res = 0;
+
+#pragma omp parallel for schedule(dynamic)
   for (int i = 0; i < repeat; i++) {
     if (start_game(get_move_p0, get_move_p1, game)) {
       res++;
@@ -84,10 +86,10 @@ int main() {
   // auto map = map_games(&plyrdm::get_move, &plyrdm::get_move, 20);
   // saveToFile(map, "output.txt", "plyrdm");
 
-  int width = 20;
-  int height = 40;
+  int width = 15;
+  int height = 20;
 
-  int repeat = 10000;
+  int repeat = 50000;
 
   double rate;
 
