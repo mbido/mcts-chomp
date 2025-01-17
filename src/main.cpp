@@ -56,7 +56,10 @@ std::vector<double> map_games(std::pair<int, int> (*get_move_p0)(Chomp *),
   for (int height = 2; height < max_size; height++) {
     for (int width = 1; width < height; width++) {
       Chomp game(height, width);
-      res.push_back(win_rate(get_move_p0, get_move_p1, &game, n));
+      auto wr = win_rate(get_move_p0, get_move_p1, &game, n);
+      std::cout << "for game of size " << height << "x" << width << " : "
+                << wr * 100 << "%\n";
+      res.push_back(wr);
     }
   }
   return res;
@@ -78,8 +81,47 @@ void saveToFile(const std::vector<double> &values, const std::string &filename,
 }
 
 int main() {
-  auto map = map_games(&plyrdm::get_move, &plyrdm::get_move, 20);
-  displayDoubles(map);
-  saveToFile(map, "output.txt", "plyrdm");
+  // auto map = map_games(&plyrdm::get_move, &plyrdm::get_move, 20);
+  // saveToFile(map, "output.txt", "plyrdm");
+
+  int width = 20;
+  int height = 40;
+
+  int repeat = 10000;
+
+  double rate;
+
+  Chomp game(height, width);
+  rate = win_rate(&plyrdm::get_move, &plyrdm::get_move, &game, repeat);
+  std::cout << "R begin vs R : " << rate * 100 << "%\n";
+
+  game.reset(height, width);
+  rate = win_rate(&plyhrstc::get_move, &plyrdm::get_move, &game, repeat);
+  std::cout << "H begin vs R : " << rate * 100 << "%\n";
+
+  game.reset(height, width);
+  rate = win_rate(&plyrdm::get_move, &plyhrstc::get_move, &game, repeat);
+  std::cout << "R begin vs H : " << rate * 100 << "%\n";
+
+  game.reset(height, width);
+  rate = win_rate(&plyhrstc::get_move, &plyhrstc::get_move, &game, repeat);
+  std::cout << "H begin vs H : " << rate * 100 << "%\n";
+
+  // game.take(2, 1);
+  // // game.display();
+  // auto move = plyhrstc::get_move(&game);
+  // game.take(move.first, move.second);
+  // // std::cout << "plays  : (" << move.first << ", " << move.second << ")"
+  // //           << std::endl;
+  // game.display();
+  // std::cout << "m_data_widths[0] : " << game.m_data_widths[0]
+  //           << " ; m_data_heights[0] : " << game.m_data_heights[0] <<
+  //           std::endl;
+  // if (game.m_data_widths[0] == 1 || game.m_data_heights[0] == 1) {
+  //   printf("BAD MOVE !\n");
+  // } else {
+  //   printf("not a bad move\n");
+  // }
+
   return 0;
 }

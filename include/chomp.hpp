@@ -1,6 +1,7 @@
 #ifndef CHOMP_HPP
 #define CHOMP_HPP
 
+#include <algorithm>
 #include <iostream>
 #include <memory>
 #include <random>
@@ -35,6 +36,7 @@ public:
   bool is_game_over();
   std::vector<std::pair<int, int>> get_legal_moves();
   void display();
+  void reset(int height, int width);
 };
 
 #endif // CHOMP_HPP

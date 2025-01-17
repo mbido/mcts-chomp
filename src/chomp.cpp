@@ -6,6 +6,13 @@ bool Chomp::taken(int r, int c) {
   return m_data_heights[c] <= r;
 }
 
+void Chomp::reset(int height, int width) {
+  m_height = height;
+  m_width = width;
+  m_data_heights = std::vector<int>(width, height);
+  m_data_widths = std::vector<int>(height, width);
+}
+
 bool Chomp::take(int r, int c) {
   if (taken(r, c))
     return false;
@@ -13,7 +20,6 @@ bool Chomp::take(int r, int c) {
   // update m_data_heights
   for (int i = c; i < m_width; i++) {
     if (m_data_heights[i] <= r) {
-      // std::cout << "hello1\n";
       break;
     }
     m_data_heights[i] = r;
@@ -22,7 +28,6 @@ bool Chomp::take(int r, int c) {
   // update m_data_widths
   for (int i = r; i < m_height; i++) {
     if (m_data_widths[i] <= c) {
-      // std::cout << "hello2\n";
       break;
     }
     m_data_widths[i] = c;
